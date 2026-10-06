@@ -76,7 +76,30 @@ public class Assinante {
      * Lista vazia → INICIANTE.
      */
     public Engajamento classificacaoEngajamento() {
-        //TODO Tarefa 2
+        int assistidos = 0;
+        for (Episodio e : episodios)
+        {
+            if(e.estaAssistido()) assistidos++;
+        }
+        double assistidos2 = (double)assistidos / quantidadeEpisodios();
+
+        if (assistidos2 <= 0.10) 
+        {
+            return Engajamento.INICIANTE;
+        }
+        else if (assistidos2 >= 0.10 && assistidos2 <= 0.50) 
+        {
+            return Engajamento.REGULAR;
+        }
+        else if (assistidos2 >= 0.50 && assistidos2 <= 0.75) 
+        {
+            return Engajamento.ENGAJADO;
+        }
+        if (assistidos2 >= 0.75) 
+        {
+            return Engajamento.BINGE;
+        }
+        // Lista Vazia
         return Engajamento.INICIANTE;
     }
 
@@ -86,7 +109,13 @@ public class Assinante {
      */
     public double tarifaMensal() {
         //TODO Tarefa 3
-        return 0.0;
+
+        if (tempoTotalAssistido() > MINUTOS_ISENCAO)
+        {
+            return 0.0;
+        }
+        
+        return TARIFA_BASE * classificacaoEngajamento().getFator();
     }
 
     public String resumo() {

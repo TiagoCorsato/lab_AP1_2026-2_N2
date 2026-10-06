@@ -52,11 +52,36 @@ public class AssinanteTest {
     void deveClassificarEngajamento() {
         //TODO Tarefa 4: testar classificacaoEngajamento em pelo menos dois cenários
         // (ex.: 4 episódios com 2 assistidos → REGULAR; 4 com 4 assistidos → BINGE)
+
+        Assinante assinante = new Assinante("Tiago");
+        Episodio ep1 = new Episodio("Flash", 9, 38); ep1.marcarAssistido();
+        Episodio ep2 = new Episodio("Flash", 9, 38); ep2.marcarAssistido();
+        Episodio ep3 = new Episodio("Flash", 9, 38);
+        Episodio ep4 = new Episodio("Flash", 9, 38);
+        assinante.adicionar(ep1); assinante.adicionar(ep2); assinante.adicionar(ep3); assinante.adicionar(ep4);
+        
+        assertEquals(assinante.classificacaoEngajamento(), Engajamento.REGULAR);
+
+        ep1.marcarAssistido();
+        ep2.marcarAssistido();
+        ep3.marcarAssistido();
+        ep4.marcarAssistido();
+
+        assertEquals(assinante.classificacaoEngajamento(), Engajamento.BINGE);
     }
 
     @Test
     void deveCalcularTarifaMensal() {
         //TODO Tarefa 5: testar tarifaMensal usando o fator da classificação
         // (ex.: BINGE sem isenção → 29,90 × 1,10) e a isenção acima de 600 minutos
+
+        Assinante assinante = new Assinante("Tiago");
+        Episodio ep1 = new Episodio("Flash", 9, 200); ep1.marcarAssistido();
+        Episodio ep2 = new Episodio("Flash", 9, 200); ep2.marcarAssistido();
+        Episodio ep3 = new Episodio("Flash", 9, 200); ep3.marcarAssistido();
+        Episodio ep4 = new Episodio("Flash", 9, 200); ep4.marcarAssistido();
+        assinante.adicionar(ep1); assinante.adicionar(ep2); assinante.adicionar(ep3); assinante.adicionar(ep4);
+
+        assertEquals(assinante.tarifaMensal(), 0);
     }
 }
